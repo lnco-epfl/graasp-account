@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useTranslation } from "react-i18next";
 import Main from "./Main";
 import { hooks } from "../../config/queryClient";
 import { CheckoutModalContext } from "../context/CheckoutModalContext";
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Subscriptions = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const { data: plans = [] } = usePlans();
 
@@ -47,9 +49,9 @@ const Subscriptions = () => {
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
 
   const getSubscribeButtonText = (plan) => {
-    if (isSubscribed(plan)) return "Subscribed";
-    if (plan.level < currentPlan?.get("level")) return "Downgrade";
-    return "Upgrade";
+    if (isSubscribed(plan)) return t("Subscribed");
+    if (plan.level < currentPlan?.get("level")) return t("Downgrade");
+    return t("Upgrade");
   };
 
   return (
@@ -63,7 +65,7 @@ const Subscriptions = () => {
           color="textPrimary"
           gutterBottom
         >
-          Subscriptions
+          {t("Subscriptions")}
         </Typography>
         <Typography
           variant="h5"
@@ -71,7 +73,7 @@ const Subscriptions = () => {
           color="textSecondary"
           component="p"
         >
-          Choose the plan most suitable for your needs
+          {t("Choose the plan most suitable for your needs")}
         </Typography>
       </Container>
       <Container maxWidth="md" component="main">
@@ -89,7 +91,10 @@ const Subscriptions = () => {
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
-                      €{plan.price}
+                      {Intl.NumberFormat(window.navigator.language ,{
+                        style: "currency",
+                        currency: plan.currency,
+                      }).format(plan.price)}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       /mo

@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import { MUTATION_KEYS } from "@graasp/query-client";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { useTranslation } from "react-i18next";
 import Main from "./Main";
 import { hooks, useMutation } from "../../config/queryClient";
 import { AddCardModalContext } from "../context/AddCardModalContext";
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PaymentOptions = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const { data: cards = [] } = useCards();
 
@@ -52,7 +54,7 @@ const PaymentOptions = () => {
           color="textPrimary"
           gutterBottom
         >
-          Payment Options
+          {t("Payment Options")}
         </Typography>
         <Typography
           variant="h5"
@@ -60,11 +62,11 @@ const PaymentOptions = () => {
           color="textSecondary"
           component="p"
         >
-          Add new cards & Choose your default payment option
+          {t("Add new cards & Choose your default payment option")}
         </Typography>
       </Container>
       <Container className={classes.cardListContainer}>
-        <Typography variant="h5">My Cards:</Typography>
+        <Typography variant="h5">{t("My Cards:")}</Typography>
         <List component="nav">
           {cards.map((card) => (
             <ListItem
@@ -85,9 +87,13 @@ const PaymentOptions = () => {
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
-            <ListItemText>Add Card</ListItemText>
+            <ListItemText>{t("Add Card")}</ListItemText>
           </ListItem>
         </List>
+
+        {t(
+          "All payments are securely processed by Stripe. View Stripe's terms and privacy policies."
+        )}
       </Container>
     </Main>
   );

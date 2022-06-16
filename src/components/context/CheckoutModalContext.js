@@ -9,6 +9,7 @@ import {
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import { MUTATION_KEYS } from "@graasp/query-client";
+import { useTranslation } from "react-i18next";
 import { useMutation } from "../../config/queryClient";
 
 const CheckoutModalContext = React.createContext();
@@ -16,6 +17,8 @@ const CheckoutModalContext = React.createContext();
 const CheckoutModalProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [plan, setPlan] = useState(null);
+
+  const { t } = useTranslation();
 
   const { mutate: changePlan } = useMutation(MUTATION_KEYS.CHANGE_PLAN);
 
@@ -38,19 +41,21 @@ const CheckoutModalProvider = ({ children }) => {
   return (
     <CheckoutModalContext.Provider value={{ openModal }}>
       <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-        <DialogTitle>Checkout - Subscribing to {plan?.name}</DialogTitle>
+        <DialogTitle>{`${t("Checkout - Subscribing to")} ${
+          plan?.name
+        }`}</DialogTitle>
         <DialogContent>
           <Typography>
-            Please confirm that you wish to subscribe to this plan.
+            {t("Please confirm that you wish to subscribe to this plan.")}
           </Typography>
-          <Typography>You will be charged upon confirmation.</Typography>
+          <Typography>{t("You will be charged upon confirmation.")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button onClick={onConfirm} color="primary">
-            Confirm
+            {t("Confirm")}
           </Button>
         </DialogActions>
       </Dialog>

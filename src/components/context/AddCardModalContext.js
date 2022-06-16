@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { MUTATION_KEYS } from "@graasp/query-client";
+import { useTranslation } from "react-i18next";
 import { hooks, useMutation } from "../../config/queryClient";
 
 const AddCardModalContext = React.createContext();
@@ -35,6 +36,8 @@ const CARD_ELEMENT_OPTIONS = {
 const AddCardModalProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  const { t } = useTranslation();
 
   const { data: member } = hooks.useCurrentMember();
 
@@ -81,22 +84,22 @@ const AddCardModalProvider = ({ children }) => {
   return (
     <AddCardModalContext.Provider value={{ openModal }}>
       <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-        <DialogTitle>Add Card</DialogTitle>
+        <DialogTitle>{t("Add Card")}</DialogTitle>
         <DialogContent>
-          <Typography>Enter your card details.</Typography>
+          <Typography>{t("Enter your card details.")}</Typography>
           <CardElement options={CARD_ELEMENT_OPTIONS} />
           {hasError ? (
             <Typography color="error">
-              Invalid Card Credentials, Please retry.
+              {t("Invalid Card Credentials, Please retry.")}
             </Typography>
           ) : null}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button onClick={onSubmit} color="primary">
-            Submit
+            {t("Submit")}
           </Button>
         </DialogActions>
       </Dialog>
