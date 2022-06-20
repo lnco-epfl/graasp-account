@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,9 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import Main from "./Main";
 import { hooks } from "../../config/queryClient";
-import { CheckoutModalContext } from "../context/CheckoutModalContext";
+import { PAYMENT_CONFIRM_PATH } from "../../config/paths";
 
 const { usePlans, useOwnPlan } = hooks;
 
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
   cardPricing: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "baseline",
     marginBottom: theme.spacing(2),
   },
 }));
@@ -41,10 +41,6 @@ const Subscriptions = () => {
   const { data: plans = [] } = usePlans();
 
   const { data: currentPlan } = useOwnPlan();
-
-  const { openModal: openCheckoutModal } = useContext(CheckoutModalContext);
-
-  const subscribe = (plan) => () => openCheckoutModal(plan);
 
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
 
@@ -91,7 +87,7 @@ const Subscriptions = () => {
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
-                      {Intl.NumberFormat(window.navigator.language ,{
+                      {Intl.NumberFormat(window.navigator.language, {
                         style: "currency",
                         currency: plan.currency,
                       }).format(plan.price)}
@@ -106,11 +102,12 @@ const Subscriptions = () => {
                 </CardContent>
                 <CardActions>
                   <Button
+                    component={Link}
                     fullWidth
                     variant="contained"
                     color="primary"
                     disabled={isSubscribed(plan)}
-                    onClick={subscribe(plan)}
+                    to={`${PAYMENT_CONFIRM_PATH}/${plan.id}`}
                   >
                     {getSubscribeButtonText(plan)}
                   </Button>
