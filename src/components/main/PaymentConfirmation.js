@@ -35,15 +35,15 @@ const PayementConfirmation = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { data: customer } = useCurrentCustomer();
+  const { data: customer, isLoading: isCustomerLoading } = useCurrentCustomer();
   const { data: plans = [] } = usePlans();
   const { id } = useParams();
 
   const [selectedCardId, setSelectedCardId] = React.useState(
-    customer?.get("defaultCard")
+    customer?.get("defaultCard") ?? null
   );
 
-  if (!selectedCardId && customer) {
+  if (!selectedCardId && !isCustomerLoading) {
     setSelectedCardId(customer.get("defaultCard"));
   }
 

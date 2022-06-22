@@ -1,21 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { hooks } from "../../config/queryClient";
-import { AddCardModalContext } from "../context/AddCardModalContext";
+import AddCardModal from "./AddCardModal";
 import CardIcon from "./CardIcon";
 
 const { useCards } = hooks;
 
 const CardList = ({ handleCardSelection, selected }) => {
-  const { t } = useTranslation();
   const { data: cards = [] } = useCards();
-
-  const { openModal: openAddCardModal } = useContext(AddCardModalContext);
-
-  const addCard = () => openAddCardModal();
 
   return (
     <List component="nav">
@@ -24,6 +17,7 @@ const CardList = ({ handleCardSelection, selected }) => {
           button
           onClick={handleCardSelection(card)}
           selected={card.id === selected}
+          key={card.id}
         >
           <ListItemIcon>
             <CardIcon brand={card?.brand} />
@@ -33,12 +27,7 @@ const CardList = ({ handleCardSelection, selected }) => {
           </ListItemText>
         </ListItem>
       ))}
-      <ListItem button onClick={addCard}>
-        <ListItemIcon>
-          <AddIcon />
-        </ListItemIcon>
-        <ListItemText>{t("Add Card")}</ListItemText>
-      </ListItem>
+      <AddCardModal/>
     </List>
   );
 };
