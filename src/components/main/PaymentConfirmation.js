@@ -35,7 +35,7 @@ const PayementConfirmation = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { data: customer, isLoading: isCustomerLoading } = useCurrentCustomer();
+  const { data: customer } = useCurrentCustomer();
   const { data: plans = [] } = usePlans();
   const { id } = useParams();
 
@@ -43,13 +43,20 @@ const PayementConfirmation = () => {
     customer?.get("defaultCard") ?? null
   );
 
-  if (!selectedCardId && !isCustomerLoading) {
+  if (!selectedCardId && customer && customer.get("defaultCard")) {
     setSelectedCardId(customer.get("defaultCard"));
   }
 
   const { openModal: openCheckoutModal } = useContext(CheckoutModalContext);
 
-  const subscribe = (plan) => () => openCheckoutModal({ id: plan });
+
+  if(plans.length === 0){
+    return <></>
+  }
+
+  const currentPlan = plans.filter((plan) => plan.id === id).get(0);
+
+  const subscribe = (plan) => () => openCheckoutModal({ id: currentPlan, name: plan.name });
 
   const handleCardSelection = (card) => () => {
     setSelectedCardId(card.id);
@@ -71,7 +78,6 @@ const PayementConfirmation = () => {
       <Grid container className={classes.container}>
         <Grid item xs={6}>
           {plans
-            .sort()
             .filter((plan) => plan.id === id)
             .map((plan) => (
               <>
@@ -87,8 +93,8 @@ const PayementConfirmation = () => {
                     <Typography component="h2" variant="h3" color="textPrimary">
                       {Intl.NumberFormat(window.navigator.language, {
                         style: "currency",
-                        currency: plan.currency,
-                      }).format(plan.price)}
+                        currency: plan.prices[0].currency,
+                      }).format(plan.prices[0].price)}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       /mo
@@ -120,7 +126,7 @@ const PayementConfirmation = () => {
         variant="contained"
         color="primary"
         disabled={!selectedCardId}
-        onClick={subscribe(id)}
+        onClick={subscribe(currentPlan)}
       >
         {t("Subscribe")}
       </Button>

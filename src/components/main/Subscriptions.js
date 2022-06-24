@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { FormControl, Select } from "@material-ui/core";
+import { List } from "immutable";
 import Main from "./Main";
 import { hooks } from "../../config/queryClient";
 import { PAYMENT_CONFIRM_PATH } from "../../config/paths";
@@ -38,16 +40,25 @@ const Subscriptions = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { data: plans = [] } = usePlans();
+  const { data: plans = List() } = usePlans();
 
   const { data: currentPlan } = useOwnPlan();
 
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
 
+  const [ currency, setCurrency ] = useState("chf");
+
+  const currencies = plans?.get(0)?.prices.map((price) => price.currency) ?? [];
+
+
   const getSubscribeButtonText = (plan) => {
     if (isSubscribed(plan)) return t("Subscribed");
     if (plan.level < currentPlan?.get("level")) return t("Downgrade");
     return t("Upgrade");
+  };
+
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
   };
 
   return (
@@ -74,6 +85,19 @@ const Subscriptions = () => {
       </Container>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
+
+
+        <FormControl fullWidth>
+          <Select
+            id="id" 
+            native 
+            value={currency}
+            onChange={handleChange}
+          >
+            { currencies.map(curr =>  <option value={curr}>{curr}</option>)}
+          </Select>
+        </FormControl>
+
           {plans.sort().map((plan) => (
             <Grid item key={plan.title} sm={12} md={6} lg={4}>
               <Card>
@@ -89,8 +113,8 @@ const Subscriptions = () => {
                     <Typography component="h2" variant="h3" color="textPrimary">
                       {Intl.NumberFormat(window.navigator.language, {
                         style: "currency",
-                        currency: plan.currency,
-                      }).format(plan.price)}
+                        currency: plan.prices.filter(({currency: curr}) => curr === currency )[0].currency,
+                      }).format(plan.prices.filter(({currency: curr}) => curr === currency )[0].price)}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       /mo
