@@ -23,11 +23,12 @@ const CardList = ({ handleCardSelection, selected }) => {
             <CardIcon brand={card?.brand} />
           </ListItemIcon>
           <ListItemText>
-            {card?.brand?.toUpperCase()} •••• •••• •••• {card?.lastFourDigits}
+            {card?.brand?.toUpperCase()} <br /> •••• •••• ••••{" "}
+            {card?.lastFourDigits}
           </ListItemText>
         </ListItem>
       ))}
-      <AddCardModal/>
+      <AddCardModal />
     </List>
   );
 };

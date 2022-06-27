@@ -24,7 +24,6 @@ const PaymentOptions = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-
   const { data: customer } = useCurrentCustomer();
 
   const { mutate: setDefaultCard } = useMutation(
@@ -59,7 +58,10 @@ const PaymentOptions = () => {
       </Container>
       <Container className={classes.cardListContainer}>
         <Typography variant="h5">{t("My Cards:")}</Typography>
-        <CardList selected={customer?.get("defaultCard")} handleCardSelection={handleCardSelection}/>
+        <CardList
+          selected={customer?.get("defaultCard")}
+          handleCardSelection={handleCardSelection}
+        />
 
         {t(
           "All payments are securely processed by Stripe. View Stripe's terms and privacy policies."

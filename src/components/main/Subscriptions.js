@@ -44,12 +44,12 @@ const Subscriptions = () => {
 
   const { data: currentPlan } = useOwnPlan();
 
+  const [currency, setCurrency] = useState("chf");
+
+  const currencies =
+    plans?.get(0)?.prices?.map((price) => price.currency) ?? [];
+
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
-
-  const [ currency, setCurrency ] = useState("chf");
-
-  const currencies = plans?.get(0)?.prices.map((price) => price.currency) ?? [];
-
 
   const getSubscribeButtonText = (plan) => {
     if (isSubscribed(plan)) return t("Subscribed");
@@ -85,18 +85,13 @@ const Subscriptions = () => {
       </Container>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-
-
-        <FormControl fullWidth>
-          <Select
-            id="id" 
-            native 
-            value={currency}
-            onChange={handleChange}
-          >
-            { currencies.map(curr =>  <option value={curr}>{curr}</option>)}
-          </Select>
-        </FormControl>
+          <FormControl fullWidth>
+            <Select id="id" native value={currency} onChange={handleChange}>
+              {currencies.map((curr) => (
+                <option value={curr}>{curr}</option>
+              ))}
+            </Select>
+          </FormControl>
 
           {plans.sort().map((plan) => (
             <Grid item key={plan.title} sm={12} md={6} lg={4}>
@@ -113,8 +108,14 @@ const Subscriptions = () => {
                     <Typography component="h2" variant="h3" color="textPrimary">
                       {Intl.NumberFormat(window.navigator.language, {
                         style: "currency",
-                        currency: plan.prices.filter(({currency: curr}) => curr === currency )[0].currency,
-                      }).format(plan.prices.filter(({currency: curr}) => curr === currency )[0].price)}
+                        currency: plan.prices.find(
+                          ({ currency: curr }) => curr === currency
+                        ).currency,
+                      }).format(
+                        plan.prices.find(
+                          ({ currency: curr }) => curr === currency
+                        ).price
+                      )}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
                       /mo

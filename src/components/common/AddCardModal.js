@@ -45,7 +45,7 @@ const AddCardModal = () => {
 
   const stripe = useStripe();
   const elements = useElements();
- 
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -80,19 +80,10 @@ const AddCardModal = () => {
 
   return (
     <>
-      <Dialog 
-        open={open} 
-        onClose={onClose} 
-        maxWidth="sm" 
-        fullWidth
-      >
-        <DialogTitle>
-          {t("Add Card")}
-        </DialogTitle>
+      <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+        <DialogTitle>{t("Add Card")}</DialogTitle>
         <DialogContent>
-          <Typography>
-            {t("Enter your card details.")}
-          </Typography>
+          <Typography>{t("Enter your card details.")}</Typography>
           <CardElement options={CARD_ELEMENT_OPTIONS} />
           {hasError ? (
             <Typography color="error">
