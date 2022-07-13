@@ -30,7 +30,6 @@ const CheckoutModal = ({ cardId, priceId, planName }) => {
     changePlan({ planId: priceId, cardId });
     setOpen(false);
     history.push(SUBSCRIPTIONS_PATH);
-    
   };
 
   const onClose = () => {
@@ -77,7 +76,5 @@ CheckoutModal.propTypes = {
   priceId: PropTypes.string.isRequired,
   planName: PropTypes.string.isRequired,
 };
-
-CheckoutModal.defaultProps = {};
 
 export default CheckoutModal;

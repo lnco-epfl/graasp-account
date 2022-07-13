@@ -23,8 +23,8 @@ const CardList = ({ handleCardSelection, selected }) => {
             <CardIcon brand={card?.brand} />
           </ListItemIcon>
           <ListItemText>
-            {card?.brand?.toUpperCase()} <br /> •••• •••• ••••{" "}
-            {card?.lastFourDigits}
+            {card?.brand?.toUpperCase()} <br />
+            •••• •••• •••• {card?.lastFourDigits}
           </ListItemText>
         </ListItem>
       ))}

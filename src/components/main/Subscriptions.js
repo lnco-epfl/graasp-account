@@ -14,8 +14,10 @@ import { Link } from "react-router-dom";
 import { FormControl, Select } from "@material-ui/core";
 import { List } from "immutable";
 import Main from "./Main";
+import { formatCurrency } from "../../utils/currency";
 import { hooks } from "../../config/queryClient";
 import { PAYMENT_CONFIRM_PATH } from "../../config/paths";
+import { DEFAULT_CURRENCY } from "../../config/constants";
 
 const { usePlans, useOwnPlan } = hooks;
 
@@ -44,7 +46,7 @@ const Subscriptions = () => {
 
   const { data: currentPlan } = useOwnPlan();
 
-  const [currency, setCurrency] = useState("chf");
+  const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
 
   const currencies =
     plans?.get(0)?.prices?.map((price) => price.currency) ?? [];
@@ -52,8 +54,12 @@ const Subscriptions = () => {
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
 
   const getSubscribeButtonText = (plan) => {
-    if (isSubscribed(plan)) return t("Subscribed");
-    if (plan.level < currentPlan?.get("level")) return t("Downgrade");
+    if (isSubscribed(plan)) {
+      return t("Subscribed");
+    }
+    if (plan.level < currentPlan?.get("level")) {
+      return t("Downgrade");
+    }
     return t("Upgrade");
   };
 
@@ -86,7 +92,7 @@ const Subscriptions = () => {
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
           <FormControl fullWidth>
-            <Select id="id" native value={currency} onChange={handleChange}>
+            <Select native value={currency} onChange={handleChange}>
               {currencies.map((curr) => (
                 <option value={curr}>{curr}</option>
               ))}
@@ -106,19 +112,14 @@ const Subscriptions = () => {
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
-                      {Intl.NumberFormat(window.navigator.language, {
-                        style: "currency",
-                        currency: plan.prices.find(
-                          ({ currency: curr }) => curr === currency
-                        ).currency,
-                      }).format(
+                      {formatCurrency(
                         plan.prices.find(
                           ({ currency: curr }) => curr === currency
-                        ).price
+                        )
                       )}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                      /mo
+                      {t("/mo")}
                     </Typography>
                   </div>
                   <Typography variant="subtitle1" align="center">
