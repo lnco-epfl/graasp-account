@@ -77,6 +77,4 @@ CheckoutModal.propTypes = {
   planName: PropTypes.string.isRequired,
 };
 
-CheckoutModal.defaultProps = {};
-
 export default CheckoutModal;

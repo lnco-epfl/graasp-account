@@ -57,7 +57,7 @@ const PaymentOptions = () => {
         </Typography>
       </Container>
       <Container className={classes.cardListContainer}>
-        <Typography variant="h5">{t("My Cards:")}</Typography>
+        <Typography variant="h5">{t("My Cards")}</Typography>
         <CardList
           selected={customer?.get("defaultCard")}
           handleCardSelection={handleCardSelection}

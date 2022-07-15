@@ -15,6 +15,7 @@ import Main from "./Main";
 import { hooks } from "../../config/queryClient";
 import CheckoutModal from "../context/CheckoutModalContext";
 import CardList from "../common/CardList";
+import { formatCurrency } from "../../utils/currency";
 
 const { useCurrentCustomer, usePlan } = hooks;
 
@@ -60,12 +61,12 @@ const PayementConfirmation = () => {
   }
 
   if (!plan) {
-    return <></>;
+    return null;
   }
 
-  if(!currency){
+  if (!currency) {
     setCurrency(plan.get("prices")[0]);
-    return <></>;
+    return null;
   }
 
   const handleCardSelection = (card) => () => setSelectedCardId(card.id);
@@ -109,13 +110,10 @@ const PayementConfirmation = () => {
             <CardContent>
               <div className={classes.cardPricing}>
                 <Typography component="h2" variant="h3" color="textPrimary">
-                  {Intl.NumberFormat(window.navigator.language, {
-                    style: "currency",
-                    currency: currency.currency,
-                  }).format(currency.price)}
+                  {formatCurrency(currency)}
                 </Typography>
                 <Typography variant="h6" color="textSecondary">
-                  /mo
+                  {t("/mo")}
                 </Typography>
               </div>
               <Typography variant="subtitle1" align="center">
@@ -142,7 +140,11 @@ const PayementConfirmation = () => {
       </Grid>
 
       <CheckoutModal
-        cardId={selectedCardId !== customer?.get("defaultCard") ? selectedCardId : undefined}
+        cardId={
+          selectedCardId !== customer?.get("defaultCard")
+            ? selectedCardId
+            : undefined
+        }
         priceId={currency.id}
         planName={plan.get("name")}
       />

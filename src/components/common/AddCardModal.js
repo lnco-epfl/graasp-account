@@ -12,7 +12,7 @@ import {
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { MUTATION_KEYS } from "@graasp/query-client";
+import { DATA_KEYS, MUTATION_KEYS } from "@graasp/query-client";
 import { useTranslation } from "react-i18next";
 import { hooks, queryClient, useMutation } from "../../config/queryClient";
 
@@ -67,7 +67,7 @@ const AddCardModal = () => {
         if (result.error) {
           setHasError(true);
         } else {
-          queryClient.invalidateQueries("cards");
+          queryClient.invalidateQueries(DATA_KEYS.CARDS_KEY);
           setOpen(false);
         }
       },
