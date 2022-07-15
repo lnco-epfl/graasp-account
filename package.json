@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@graasp/query-client": "git://github.com/graasp/graasp-query-client.git",
-    "@graasp/ui": "git://github.com/graasp/graasp-ui.git#39/yarn2",
+    "@graasp/query-client": "github:graasp/graasp-query-client",
+    "@graasp/ui": "github:graasp/graasp-ui.git",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
-    "@stripe/react-stripe-js": "^1.4.1",
-    "@stripe/stripe-js": "^1.16.0",
+    "@stripe/react-stripe-js": "^1.8.1",
+    "@stripe/stripe-js": "^1.31.0",
+    "ag-grid-community": "^27.3.0",
+    "ag-grid-react": "^27.3.0",
     "clsx": "1.1.1",
     "connected-react-router": "6.9.1",
     "history": "5.0.0",
@@ -92,8 +94,5 @@
     "typescript": "4.2.4",
     "wait-on": "5.3.0"
   },
-  "packageManager": "yarn@3.0.1-rc.1",
-  "resolutions": {
-    "@graasp/query-client": "portal:/Users/yoda-k/WebstormProjects/graasp-query-client"
-  }
+  "packageManager": "yarn@3.0.1-rc.1"
 }

@@ -49,3 +49,5 @@ export const GRAASP_LOGO_HEADER_HEIGHT = 40;
 export const HEADER_HEIGHT = 64;
 
 export const LEFT_MENU_WIDTH = 250;
+
+export const DEFAULT_CURRENCY = "chf";

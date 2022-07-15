@@ -1,17 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { MUTATION_KEYS } from "@graasp/query-client";
-import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { useTranslation } from "react-i18next";
 import Main from "./Main";
 import { hooks, useMutation } from "../../config/queryClient";
-import { AddCardModalContext } from "../context/AddCardModalContext";
-import CardIcon from "../common/CardIcon";
+import CardList from "../common/CardList";
 
-const { useCards, useCurrentCustomer } = hooks;
+const { useCurrentCustomer } = hooks;
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -24,18 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 const PaymentOptions = () => {
   const classes = useStyles();
-
-  const { data: cards = [] } = useCards();
+  const { t } = useTranslation();
 
   const { data: customer } = useCurrentCustomer();
 
   const { mutate: setDefaultCard } = useMutation(
     MUTATION_KEYS.SET_DEFAULT_CARD
   );
-
-  const { openModal: openAddCardModal } = useContext(AddCardModalContext);
-
-  const addCard = () => openAddCardModal();
 
   const handleCardSelection = (card) => () => {
     setDefaultCard({ cardId: card.id });
@@ -52,7 +45,7 @@ const PaymentOptions = () => {
           color="textPrimary"
           gutterBottom
         >
-          Payment Options
+          {t("Payment Options")}
         </Typography>
         <Typography
           variant="h5"
@@ -60,34 +53,19 @@ const PaymentOptions = () => {
           color="textSecondary"
           component="p"
         >
-          Add new cards & Choose your default payment option
+          {t("Add new cards & Choose your default payment option")}
         </Typography>
       </Container>
       <Container className={classes.cardListContainer}>
-        <Typography variant="h5">My Cards:</Typography>
-        <List component="nav">
-          {cards.map((card) => (
-            <ListItem
-              button
-              onClick={handleCardSelection(card)}
-              selected={card.id === customer?.get("defaultCard")}
-            >
-              <ListItemIcon>
-                <CardIcon brand={card?.brand} />
-              </ListItemIcon>
-              <ListItemText>
-                {card?.brand?.toUpperCase()} •••• •••• ••••{" "}
-                {card?.lastFourDigits}
-              </ListItemText>
-            </ListItem>
-          ))}
-          <ListItem button onClick={addCard}>
-            <ListItemIcon>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText>Add Card</ListItemText>
-          </ListItem>
-        </List>
+        <Typography variant="h5">{t("My Cards")}</Typography>
+        <CardList
+          selected={customer?.get("defaultCard")}
+          handleCardSelection={handleCardSelection}
+        />
+
+        {t(
+          "All payments are securely processed by Stripe. View Stripe's terms and privacy policies."
+        )}
       </Container>
     </Main>
   );

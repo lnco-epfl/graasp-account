@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import {
   HOME_PATH,
+  PAYMENT_CONFIRM_PATH,
   PAYMENT_OPTIONS_PATH,
   SUBSCRIPTIONS_PATH,
 } from "../config/paths";
@@ -15,6 +16,7 @@ import MemberProfileScreen from "./main/MemberProfileScreen";
 import MainProviders from "./context/MainProviders";
 import Subscriptions from "./main/Subscriptions";
 import PaymentOptions from "./main/PaymentOptions";
+import PayementConfirmation from "./main/PaymentConfirmation";
 
 export const App = () => (
   <MainProviders>
@@ -34,6 +36,10 @@ export const App = () => (
           path={PAYMENT_OPTIONS_PATH}
           exact
           component={Authorization()(PaymentOptions)}
+        />
+        <Route
+          path={`${PAYMENT_CONFIRM_PATH}/:id`}
+          component={Authorization()(PayementConfirmation)}
         />
         <Redirect to={HOME_PATH} />
       </Switch>

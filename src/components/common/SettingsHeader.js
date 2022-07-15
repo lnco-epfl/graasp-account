@@ -66,7 +66,7 @@ const SettingsHeader = () => {
       return (
         <MenuItem
           component="a"
-          href={`${AUTHENTICATION_HOST}/${API_ROUTES.buildSignInPath()}`}
+          href={`${AUTHENTICATION_HOST}/${API_ROUTES.SIGN_IN_ROUTE}`}
         >
           {t("Sign In")}
         </MenuItem>

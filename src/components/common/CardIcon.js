@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles(() => ({
   icon: {
     height: 35,
-    width: "fit-content",
+    width: "auto",
     marginRight: 10,
   },
 }));

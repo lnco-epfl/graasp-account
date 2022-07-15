@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router";
 import { API_ROUTES } from "@graasp/query-client";
 import { AUTHENTICATION_HOST, NODE_ENV } from "../../config/constants";
 import { hooks } from "../../config/queryClient";
@@ -9,14 +8,8 @@ import { redirect } from "../../utils/navigation";
 
 const Authorization = () => (ChildComponent) => {
   const ComposedComponent = (props) => {
-    const { pathname } = useLocation();
-
     const redirectToSignIn = () => {
-      redirect(
-        `${AUTHENTICATION_HOST}/${API_ROUTES.buildSignInPath(
-          `${window.location.origin}${pathname}`
-        )}`
-      );
+      redirect(`${AUTHENTICATION_HOST}/${API_ROUTES.SIGN_IN_ROUTE}`);
     };
 
     const { data: currentMember, isLoading } = hooks.useCurrentMember();
@@ -38,9 +31,7 @@ const Authorization = () => (ChildComponent) => {
     // redirect page if redirection is not working
     return (
       <RedirectPage
-        link={`${AUTHENTICATION_HOST}/${API_ROUTES.buildSignInPath(
-          `${window.location.origin}${pathname}`
-        )}`}
+        link={`${AUTHENTICATION_HOST}/${API_ROUTES.SIGN_IN_ROUTE}`}
       />
     );
   };

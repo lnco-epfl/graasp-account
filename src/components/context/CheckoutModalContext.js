@@ -7,64 +7,74 @@ import {
   Typography,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import PropTypes from "prop-types";
 import { MUTATION_KEYS } from "@graasp/query-client";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router";
 import { useMutation } from "../../config/queryClient";
+import { SUBSCRIPTIONS_PATH } from "../../config/paths";
 
-const CheckoutModalContext = React.createContext();
-
-const CheckoutModalProvider = ({ children }) => {
+const CheckoutModal = ({ cardId, priceId, planName }) => {
   const [open, setOpen] = useState(false);
-  const [plan, setPlan] = useState(null);
+
+  const { t } = useTranslation();
+  const history = useHistory();
 
   const { mutate: changePlan } = useMutation(MUTATION_KEYS.CHANGE_PLAN);
 
-  const openModal = (newPlan) => {
+  const onOpen = () => {
     setOpen(true);
-    setPlan(newPlan);
   };
 
   const onConfirm = () => {
-    changePlan({ planId: plan.id });
+    changePlan({ planId: priceId, cardId });
     setOpen(false);
-    setPlan(null);
+    history.push(SUBSCRIPTIONS_PATH);
   };
 
   const onClose = () => {
     setOpen(false);
-    setPlan(null);
   };
 
   return (
-    <CheckoutModalContext.Provider value={{ openModal }}>
+    <>
       <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-        <DialogTitle>Checkout - Subscribing to {plan?.name}</DialogTitle>
+        <DialogTitle>{`${t(
+          "Checkout - Subscribing to"
+        )} ${planName}`}</DialogTitle>
         <DialogContent>
           <Typography>
-            Please confirm that you wish to subscribe to this plan.
+            {t("Please confirm that you wish to subscribe to this plan.")}
           </Typography>
-          <Typography>You will be charged upon confirmation.</Typography>
+          <Typography>{t("You will be charged upon confirmation.")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
-            Cancel
+            {t("Cancel")}
           </Button>
           <Button onClick={onConfirm} color="primary">
-            Confirm
+            {t("Confirm")}
           </Button>
         </DialogActions>
       </Dialog>
-      {children}
-    </CheckoutModalContext.Provider>
+
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        disabled={!priceId}
+        onClick={onOpen}
+      >
+        {t("Subscribe")}
+      </Button>
+    </>
   );
 };
 
-CheckoutModalProvider.propTypes = {
-  children: PropTypes.node,
+CheckoutModal.propTypes = {
+  cardId: PropTypes.string.isRequired,
+  priceId: PropTypes.string.isRequired,
+  planName: PropTypes.string.isRequired,
 };
 
-CheckoutModalProvider.defaultProps = {
-  children: null,
-};
-
-export { CheckoutModalProvider, CheckoutModalContext };
+export default CheckoutModal;

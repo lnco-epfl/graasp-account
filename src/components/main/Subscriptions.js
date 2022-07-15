@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -9,9 +9,15 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { FormControl, Select } from "@material-ui/core";
+import { List } from "immutable";
 import Main from "./Main";
+import { formatCurrency } from "../../utils/currency";
 import { hooks } from "../../config/queryClient";
-import { CheckoutModalContext } from "../context/CheckoutModalContext";
+import { PAYMENT_CONFIRM_PATH } from "../../config/paths";
+import { DEFAULT_CURRENCY } from "../../config/constants";
 
 const { usePlans, useOwnPlan } = hooks;
 
@@ -28,28 +34,37 @@ const useStyles = makeStyles((theme) => ({
   cardPricing: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "baseline",
     marginBottom: theme.spacing(2),
   },
 }));
 
 const Subscriptions = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
-  const { data: plans = [] } = usePlans();
+  const { data: plans = List() } = usePlans();
 
   const { data: currentPlan } = useOwnPlan();
 
-  const { openModal: openCheckoutModal } = useContext(CheckoutModalContext);
+  const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
 
-  const subscribe = (plan) => () => openCheckoutModal(plan);
+  const currencies =
+    plans?.get(0)?.prices?.map((price) => price.currency) ?? [];
 
   const isSubscribed = (plan) => plan.id === currentPlan?.get("id");
 
   const getSubscribeButtonText = (plan) => {
-    if (isSubscribed(plan)) return "Subscribed";
-    if (plan.level < currentPlan?.get("level")) return "Downgrade";
-    return "Upgrade";
+    if (isSubscribed(plan)) {
+      return t("Subscribed");
+    }
+    if (plan.level < currentPlan?.get("level")) {
+      return t("Downgrade");
+    }
+    return t("Upgrade");
+  };
+
+  const handleChange = (event) => {
+    setCurrency(event.target.value);
   };
 
   return (
@@ -63,7 +78,7 @@ const Subscriptions = () => {
           color="textPrimary"
           gutterBottom
         >
-          Subscriptions
+          {t("Subscriptions")}
         </Typography>
         <Typography
           variant="h5"
@@ -71,11 +86,19 @@ const Subscriptions = () => {
           color="textSecondary"
           component="p"
         >
-          Choose the plan most suitable for your needs
+          {t("Choose the plan most suitable for your needs")}
         </Typography>
       </Container>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
+          <FormControl fullWidth>
+            <Select native value={currency} onChange={handleChange}>
+              {currencies.map((curr) => (
+                <option value={curr}>{curr}</option>
+              ))}
+            </Select>
+          </FormControl>
+
           {plans.sort().map((plan) => (
             <Grid item key={plan.title} sm={12} md={6} lg={4}>
               <Card>
@@ -89,10 +112,14 @@ const Subscriptions = () => {
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
-                      €{plan.price}
+                      {formatCurrency(
+                        plan.prices.find(
+                          ({ currency: curr }) => curr === currency
+                        )
+                      )}
                     </Typography>
                     <Typography variant="h6" color="textSecondary">
-                      /mo
+                      {t("/mo")}
                     </Typography>
                   </div>
                   <Typography variant="subtitle1" align="center">
@@ -101,11 +128,12 @@ const Subscriptions = () => {
                 </CardContent>
                 <CardActions>
                   <Button
+                    component={Link}
                     fullWidth
                     variant="contained"
                     color="primary"
                     disabled={isSubscribed(plan)}
-                    onClick={subscribe(plan)}
+                    to={`${PAYMENT_CONFIRM_PATH}/${plan.id}`}
                   >
                     {getSubscribeButtonText(plan)}
                   </Button>
