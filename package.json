@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@graasp/query-client": "github:graasp/graasp-query-client#59/addSubscriptions",
+    "@graasp/query-client": "github:graasp/graasp-query-client",
     "@graasp/ui": "github:graasp/graasp-ui.git",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",

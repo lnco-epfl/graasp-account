@@ -30,7 +30,6 @@ const CheckoutModal = ({ cardId, priceId, planName }) => {
     changePlan({ planId: priceId, cardId });
     setOpen(false);
     history.push(SUBSCRIPTIONS_PATH);
-    
   };
 
   const onClose = () => {
