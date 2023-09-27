@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 
+// import { useNavigate } from 'react-router';
 import {
   Dialog,
   DialogActions,
@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import { SUBSCRIPTIONS_PATH } from '../../config/paths';
+// import { SUBSCRIPTIONS_PATH } from '../../config/paths';
 import { mutations } from '../../config/queryClient';
 
 type Props = {
@@ -24,7 +24,7 @@ const CheckoutModal = ({ cardId, priceId, planName }: Props): JSX.Element => {
   const [open, setOpen] = useState(false);
 
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { mutate: changePlan } = mutations.useChangePlan();
 
@@ -35,7 +35,7 @@ const CheckoutModal = ({ cardId, priceId, planName }: Props): JSX.Element => {
   const onConfirm = () => {
     changePlan({ planId: priceId, cardId });
     setOpen(false);
-    navigate(SUBSCRIPTIONS_PATH);
+    // navigate(SUBSCRIPTIONS_PATH);
   };
 
   const onClose = () => {
