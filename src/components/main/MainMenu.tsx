@@ -16,7 +16,7 @@ import {
   AVATAR_SETTINGS_PATH,
   HOME_PATH,
   PASSWORD_SETTINGS_PATH,
-  SUBSCRIPTIONS_PATH,
+  STORAGE_PATH,
 } from '../../config/paths';
 
 const MainMenu = (): JSX.Element => {
@@ -61,8 +61,8 @@ const MainMenu = (): JSX.Element => {
         <ListItemText primary={t('MAIN_MENU_PASSWORD')} />
       </ListItemButton>
       <ListItemButton
-        onClick={() => goTo(SUBSCRIPTIONS_PATH)}
-        selected={pathname === SUBSCRIPTIONS_PATH}
+        onClick={() => goTo(STORAGE_PATH)}
+        selected={pathname === STORAGE_PATH}
       >
         <ListItemIcon>
           <DataUsageIcon />
