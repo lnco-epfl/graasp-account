@@ -11,7 +11,12 @@ import {
   CHANGE_PLAN_SUCCESS_MESSAGE,
 } from './messages';
 
-const { changePlanRoutine, updatePasswordRoutine } = routines;
+const {
+  changePlanRoutine,
+  updatePasswordRoutine,
+  postPublicProfileRoutine,
+  patchPublicProfileRoutine,
+} = routines;
 
 type ErrorPayload = Parameters<Notifier>[0]['payload'] & {
   failure?: unknown[];
@@ -63,12 +68,18 @@ export default ({
       message = getSuccessMessageFromPayload(payload);
       break;
     }
+    case postPublicProfileRoutine.SUCCESS:
+    case patchPublicProfileRoutine.SUCCESS: {
+      message = getSuccessMessageFromPayload(payload);
+      break;
+    }
 
     // progress messages
     case changePlanRoutine.SUCCESS: {
       message = CHANGE_PLAN_SUCCESS_MESSAGE;
       break;
     }
+
     default:
   }
 

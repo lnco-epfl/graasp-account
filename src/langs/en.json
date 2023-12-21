@@ -9,6 +9,7 @@
   "MAIN_MENU_PROFILE": "Profile",
   "MAIN_MENU_AVATAR": "Avatar",
   "MAIN_MENU_PASSWORD": "Password",
+  "MAIN_MENU_PUBLIC_PROFILE": "Public Profile",
   "MAIN_MENU_STORAGE": "Storage",
   "SAVE_ACTIONS_TOGGLE_TOOLTIP": "Coming soon!",
 
@@ -40,5 +41,24 @@
   "PASSWORD_SETTINGS_CONFIRM_BUTTON": "Update password",
 
   "PASSWORD_SETTINGS_CONFIRM_INFORMATION": "Make sure it is at least 8 characters including a number, a lowercase letter and an uppercase letter.",
-  "PASSWORD_SETTINGS_REQUEST_RESET_BUTTON": "Request a reset"
+  "PASSWORD_SETTINGS_REQUEST_RESET_BUTTON": "Request a reset",
+
+  "STOCKAGE_INFO": "Storage takes into account all uploaded files such as PDF, images, videos, audio, etc. Folders, apps and Graasp documents are not included.",
+
+  "PUBLIC_PROFILE_TITLE": "Public Profile Setting",
+  "PUBLIC_PROFILE_DESCRIPTION": "Personalize your public profile to let other users interested in your work know a bit more about you. You can make it private anytime.",
+  "PUBLIC_PROFILE_LINKEDIN_LINK": "LinkedIn ID",
+  "PUBLIC_PROFILE_LINKEDIN_LINK_ERROR_MSG": "LinkedIn Link is not a valid url",
+  "PUBLIC_PROFILE_TWITTER_LINK": "Twitter ID",
+  "PUBLIC_PROFILE_TWITTER_LINK_ERROR_MSG": "Twitter Link is not a valid url",
+
+  "PUBLIC_PROFILE_FACEBOOK_LINK": "Facebook ID",
+  "PUBLIC_PROFILE_FACEBOOK_LINK_ERROR_MSG": "facebook Link is not a valid url",
+
+  "PUBLIC_PROFILE_BIO": "Bio",
+  "PUBLIC_PROFILE_BIO_ERROR_MSG": "Bio is a required field",
+
+  "PUBLIC_PROFILE_VISIBILITY": "Make this profile public",
+  "PUBLIC_PROFILE_SUBMIT_TEXT": "Save Changes",
+  "PUBLIC_PROFILE_CHECK_TEXT": "Check Profile"
 }
