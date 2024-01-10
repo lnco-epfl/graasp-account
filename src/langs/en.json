@@ -50,6 +50,8 @@
   "PUBLIC_PROFILE_VISIBILITY": "Make this profile public",
   "PUBLIC_PROFILE_SUBMIT_TEXT": "Save Changes",
   "PUBLIC_PROFILE_CHECK_TEXT": "Check Profile",
+  "ALWAYS_RECEIVE_EMAILS": "Always receive email notifications",
+  "DISABLE_EMAILS": "Disable email notifications",
   "PATCH_PROFILE": "Public profile successfully updated",
   "POST_PROFILE": "Public profile successfully created"
 }
