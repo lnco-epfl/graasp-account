@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 
+import { Whatshot } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import DataUsageIcon from '@mui/icons-material/DataUsage';
@@ -16,6 +17,7 @@ import { useAccountTranslation } from '../../config/i18n';
 import {
   AVATAR_SETTINGS_PATH,
   HOME_PATH,
+  MANAGE_ACCOUNT_PATH,
   PASSWORD_SETTINGS_PATH,
   PUBLIC_PROFILE_PATH,
   STORAGE_PATH,
@@ -81,6 +83,16 @@ const MainMenu = (): JSX.Element => {
         </ListItemIcon>
 
         <ListItemText primary={t('MAIN_MENU_PUBLIC_PROFILE')} />
+      </ListItemButton>
+      <ListItemButton
+        onClick={() => goTo(MANAGE_ACCOUNT_PATH)}
+        selected={pathname === MANAGE_ACCOUNT_PATH}
+      >
+        <ListItemIcon>
+          <Whatshot />
+        </ListItemIcon>
+
+        <ListItemText primary={t('MAIN_MENU_DESTRUCTIVE_SETTINGS')} />
       </ListItemButton>
       {/* <ListItemButton
         button

@@ -10,6 +10,7 @@ import { GRAASP_AUTH_HOST } from '../config/constants';
 import {
   AVATAR_SETTINGS_PATH,
   HOME_PATH,
+  MANAGE_ACCOUNT_PATH,
   PASSWORD_SETTINGS_PATH,
   PUBLIC_PROFILE_PATH,
   STORAGE_PATH,
@@ -17,6 +18,7 @@ import {
 import { hooks } from '../config/queryClient';
 import MainProviders from './context/MainProviders';
 import AvatarSettings from './main/AvatarSettings';
+import DestructiveSettingsScreen from './main/DestructiveSettingsScreen';
 import MemberProfileScreen from './main/MemberProfileScreen';
 import PasswordSettings from './main/PasswordSettings';
 import PublicProfileScreen from './main/PublicProfileScreen';
@@ -60,6 +62,10 @@ export const App = (): JSX.Element => {
     PublicProfileScreen,
     withAuthorizationProps,
   );
+  const DestructiveSettingsWithAuthoriztion = withAuthorization(
+    DestructiveSettingsScreen,
+    withAuthorizationProps,
+  );
 
   if (currentMember) {
     return (
@@ -81,6 +87,10 @@ export const App = (): JSX.Element => {
             <Route
               path={PUBLIC_PROFILE_PATH}
               element={<PublicProfileWithAutorization />}
+            />
+            <Route
+              path={MANAGE_ACCOUNT_PATH}
+              element={<DestructiveSettingsWithAuthoriztion />}
             />
             <Route path={STORAGE_PATH} element={<StockageWithAutorization />} />
 

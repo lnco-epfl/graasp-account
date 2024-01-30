@@ -1,8 +1,12 @@
+import { Link } from 'react-router-dom';
+
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import {
   Alert,
+  Box,
   Grid,
   IconButton,
+  Stack,
   Switch,
   Tooltip,
   Typography,
@@ -10,6 +14,8 @@ import {
 
 import { formatDate } from '@graasp/sdk';
 import { Loader } from '@graasp/ui';
+
+import { MANAGE_ACCOUNT_PATH } from '@/config/paths';
 
 import {
   DEFAULT_EMAIL_FREQUENCY,
@@ -21,7 +27,6 @@ import notifier from '../../config/notifier';
 import { hooks, mutations } from '../../config/queryClient';
 import { COPY_MEMBER_ID_TO_CLIPBOARD } from '../../types/clipboard';
 import { copyToClipboard } from '../../utils/clipboard';
-import DeleteMemberDialog from './DeleteMemberDialog';
 import EmailPreferenceSwitch from './EmailPreferenceSwitch';
 import LanguageSwitch from './LanguageSwitch';
 import Main from './Main';
@@ -62,8 +67,8 @@ const MemberProfileScreen = (): JSX.Element => {
 
   return (
     <Main>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Stack spacing={3}>
+        <Box>
           <Typography variant="h4">{member.name}</Typography>
           {/* todo: display only as light user */}
           <Grid container alignItems="center">
@@ -139,10 +144,15 @@ const MemberProfileScreen = (): JSX.Element => {
               </Tooltip>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-
-      <DeleteMemberDialog id={member?.id} />
+        </Box>
+        <Box>
+          <Typography variant="h6" color="red">
+            {t('PROFILE_DELETE_ACCOUNT_BUTTON')}
+          </Typography>
+          <Typography variant="body1">{t('DELETE_ACCOUNT_DETAILS')}</Typography>
+          <Link to={MANAGE_ACCOUNT_PATH}>{t('GO_TO_MANAGE_ACCOUNT_PAGE')}</Link>
+        </Box>
+      </Stack>
     </Main>
   );
 };
