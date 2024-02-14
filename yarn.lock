@@ -7091,8 +7091,6 @@ __metadata:
     http-status-codes: "npm:2.3.0"
     husky: "npm:8.0.3"
     lodash.truncate: "npm:4.4.2"
-    node-fetch: "npm:2.7.0"
-    payment-icons: "npm:1.2.1"
     prettier: "npm:3.2.4"
     qs: "npm:6.11.2"
     react: "npm:18.2.0"
@@ -9160,7 +9158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.7.0, node-fetch@npm:^2.0.0":
+"node-fetch@npm:^2.0.0":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -9755,13 +9753,6 @@ __metadata:
   version: 1.1.1
   resolution: "pathval@npm:1.1.1"
   checksum: 10/b50a4751068aa3a5428f5a0b480deecedc6f537666a3630a0c2ae2d5e7c0f4bf0ee77b48404441ec1220bef0c91625e6030b3d3cf5a32ab0d9764018d1d9dbb6
-  languageName: node
-  linkType: hard
-
-"payment-icons@npm:1.2.1":
-  version: 1.2.1
-  resolution: "payment-icons@npm:1.2.1"
-  checksum: 10/a6d7fb8772b64afb8689efb29e1df0b88823a7029d22048f07b6932f02e79fa589b9d21e17245e71117f710872e9358913d79bde41d7ba08afb0b73b6028129b
   languageName: node
   linkType: hard
 
