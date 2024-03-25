@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import { AppBar, Toolbar, Typography, styled } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import { AppBar, Toolbar, Typography, styled, useTheme } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 
 import {
   GraaspLogo,
   Platform,
   PlatformSwitch,
+  PlatformSwitchProps,
   defaultHostsMapper,
+  useMobileView,
   usePlatformNavigation,
 } from '@graasp/ui';
 
@@ -38,6 +41,10 @@ const StyledLink = styled(Link)(() => ({
   display: 'flex',
   alignItems: 'center',
 }));
+const AccountIcon: PlatformSwitchProps['CustomMobileIcon'] = (props) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <PersonIcon {...props} />
+);
 
 type Props = {
   isMenuOpen: boolean;
@@ -53,6 +60,8 @@ export const platformsHostsMap = defaultHostsMapper({
 });
 
 const Header = ({ isMenuOpen, toggleMenu }: Props): JSX.Element => {
+  const theme = useTheme();
+  const { isMobile } = useMobileView();
   const getNavigationEvents = usePlatformNavigation(platformsHostsMap);
   const platformProps = {
     [Platform.Builder]: {
@@ -98,7 +107,20 @@ const Header = ({ isMenuOpen, toggleMenu }: Props): JSX.Element => {
               {APP_NAME}
             </Typography>
           </StyledLink>
-          <PlatformSwitch platformsProps={platformProps} />
+          <PlatformSwitch
+            CustomMobileIcon={AccountIcon}
+            platformsProps={platformProps}
+            color={
+              isMobile
+                ? theme.palette.primary.main
+                : theme.palette.secondary.main
+            }
+            accentColor={
+              isMobile
+                ? theme.palette.secondary.main
+                : theme.palette.primary.main
+            }
+          />
         </StyledDiv>
         <UserSwitchWrapper />
       </StyledToolbar>
