@@ -21,17 +21,23 @@ const StorageBarIndicator = styled('progress')(({ theme }) => ({
   /* Get rid of default border in Firefox. */
   border: 'none',
 
+  // border radius are the same as the inside element but prevent the bar from bleeding out
+  overflow: 'hidden',
+  borderRadius: theme.spacing(1),
+
   // apply some height to it
   height: theme.spacing(4),
 
   '&::-webkit-progress-bar': {
     backgroundColor: '#eee',
+    // this border radius is necessary to maintain the shadow around the corners
     borderRadius: theme.spacing(1),
     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.25) inset',
   },
   '&::-webkit-progress-value': {
     backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.spacing(1, 0, 0, 1),
+    // this border radius is not necessary if we keep the border radius and overflow hidden on the real progress element
+    // borderRadius: theme.spacing(1, 0, 0, 1),
   },
   '&::-moz-progress-bar': {
     backgroundColor: theme.palette.primary.main,
