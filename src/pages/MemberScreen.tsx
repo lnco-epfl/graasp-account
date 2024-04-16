@@ -24,10 +24,9 @@ import { useAccountTranslation } from '@/config/i18n';
 import notifier from '@/config/notifier';
 import { MANAGE_ACCOUNT_PATH } from '@/config/paths';
 import { hooks, mutations } from '@/config/queryClient';
+import { MEMBER_PROFILE_ANALYTICS_SWITCH_ID } from '@/config/selectors';
 import { COPY_MEMBER_ID_TO_CLIPBOARD } from '@/types/clipboard';
 import { copyToClipboard } from '@/utils/clipboard';
-
-const DEFAULT_MEMBER_PROFILE_SAVE_ACTIONS_SETTING = true;
 
 const MemberProfileScreen = (): JSX.Element | null => {
   const { t, i18n } = useAccountTranslation();
@@ -50,9 +49,7 @@ const MemberProfileScreen = (): JSX.Element | null => {
     const handleOnToggle = (event: { target: { checked: boolean } }): void => {
       editMember({
         id: member.id,
-        extra: {
-          enableSaveActions: event.target.checked,
-        },
+        enableSaveActions: event.target.checked,
       });
     };
 
@@ -132,17 +129,12 @@ const MemberProfileScreen = (): JSX.Element | null => {
             </Grid>
             <Grid item xs={8}>
               <Tooltip title={translateAccount('SAVE_ACTIONS_TOGGLE_TOOLTIP')}>
-                <span>
-                  <Switch
-                    onChange={handleOnToggle}
-                    checked={
-                      member.extra?.enableSaveActions ??
-                      DEFAULT_MEMBER_PROFILE_SAVE_ACTIONS_SETTING
-                    }
-                    color="primary"
-                    disabled
-                  />
-                </span>
+                <Switch
+                  data-cy={MEMBER_PROFILE_ANALYTICS_SWITCH_ID}
+                  onChange={handleOnToggle}
+                  checked={member.enableSaveActions}
+                  color="primary"
+                />
               </Tooltip>
             </Grid>
           </Grid>
