@@ -1,10 +1,18 @@
 import React, { FormEvent, useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { LoadingButton } from '@mui/lab';
-import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Stack,
+  Typography,
+} from '@mui/material';
 
 import { Config, SocialLinks } from 'social-links';
 
@@ -16,6 +24,7 @@ import {
 } from '@/config/constants';
 import { GRAASP_LIBRARY_HOST } from '@/config/env';
 import { useAccountTranslation } from '@/config/i18n';
+import { PROFILE_PATH } from '@/config/paths';
 import { hooks, mutations } from '@/config/queryClient';
 
 const config: Config = {
@@ -42,7 +51,7 @@ const initialDirtyFieldsState = {
   facebookID: false,
   visibility: false,
 };
-const PublicProfileScreen = (): JSX.Element => {
+const EditPublicProfileScreen = (): JSX.Element => {
   const { t } = useAccountTranslation();
 
   const { data, refetch } = hooks.useOwnProfile();
@@ -220,27 +229,31 @@ const PublicProfileScreen = (): JSX.Element => {
             }
             label={t('PUBLIC_PROFILE_VISIBILITY')}
           />
+          <Stack direction="row" spacing={2}>
+            <Button component={Link} to={PROFILE_PATH} variant="outlined">
+              {t('CLOSE_BUTTON')}
+            </Button>
 
-          <LoadingButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={
-              !formChanged ||
-              !profileData.bio.trim() ||
-              !isValidUrl(profileData.facebookID) ||
-              !isValidUrl(profileData.twitterID) ||
-              !isValidUrl(profileData.linkedinID)
-            }
-            loading={isAddLoading || isEditLoading}
-          >
-            {t('PUBLIC_PROFILE_SUBMIT_TEXT')}
-          </LoadingButton>
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={
+                !formChanged ||
+                !profileData.bio.trim() ||
+                !isValidUrl(profileData.facebookID) ||
+                !isValidUrl(profileData.twitterID) ||
+                !isValidUrl(profileData.linkedinID)
+              }
+              loading={isAddLoading || isEditLoading}
+            >
+              {t('PUBLIC_PROFILE_SUBMIT_TEXT')}
+            </LoadingButton>
+          </Stack>
         </Box>
       </form>
     </Box>
   );
 };
 
-export default PublicProfileScreen;
+export default EditPublicProfileScreen;

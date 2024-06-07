@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
+
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import {
   Alert,
   Box,
+  Button,
   Grid,
   IconButton,
   Stack,
@@ -20,6 +23,7 @@ import UsernameForm from '@/components/main/UsernameForm';
 import { DEFAULT_EMAIL_FREQUENCY } from '@/config/constants';
 import { useAccountTranslation } from '@/config/i18n';
 import notifier from '@/config/notifier';
+import { PROFILE_PATH } from '@/config/paths';
 import { hooks, mutations } from '@/config/queryClient';
 import {
   MEMBER_PROFILE_ANALYTICS_SWITCH_ID,
@@ -28,12 +32,11 @@ import {
 import { COPY_MEMBER_ID_TO_CLIPBOARD } from '@/types/clipboard';
 import { copyToClipboard } from '@/utils/clipboard';
 
-const MemberProfileScreen = (): JSX.Element | null => {
+const EditMemberPersonalInformation = (): JSX.Element | null => {
   const { t, i18n } = useAccountTranslation();
   const { t: translateAccount } = useAccountTranslation();
   const { data: member, isLoading } = hooks.useCurrentMember();
   const { mutate: editMember } = mutations.useEditMember();
-
   if (member) {
     const copyIdToClipboard = () => {
       copyToClipboard(member.id, {
@@ -93,7 +96,7 @@ const MemberProfileScreen = (): JSX.Element | null => {
           </Grid>
           <Grid container alignItems="center">
             <Grid item xs={4}>
-              <Typography>{t('PROFILE_CREATED_AT_TITLE')}</Typography>
+              <Typography>{t('PROFILE_CREATED_AT_LABEL')}</Typography>
             </Grid>
             <Grid item xs={8}>
               <Typography>
@@ -139,11 +142,15 @@ const MemberProfileScreen = (): JSX.Element | null => {
               </Tooltip>
             </Grid>
           </Grid>
+          <Stack direction="row" spacing={2}>
+            <Button component={Link} to={PROFILE_PATH} variant="outlined">
+              {t('CLOSE_BUTTON')}
+            </Button>
+          </Stack>
         </Box>
       </Stack>
     );
   }
-
   if (isLoading) {
     return <Loader />;
   }
@@ -155,4 +162,4 @@ const MemberProfileScreen = (): JSX.Element | null => {
   return null;
 };
 
-export default MemberProfileScreen;
+export default EditMemberPersonalInformation;
