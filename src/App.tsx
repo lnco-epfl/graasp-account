@@ -103,6 +103,7 @@ export const App = (): JSX.Element => {
             path={MANAGE_ACCOUNT_PATH}
             element={<SettingsWithAuthorization />}
           />
+
           <Route path={STORAGE_PATH} element={<StorageWithAuthorization />} />
         </Route>
       </Routes>
