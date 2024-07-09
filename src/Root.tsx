@@ -2,6 +2,7 @@ import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { theme } from '@graasp/ui';
@@ -18,7 +19,8 @@ const Root = (): JSX.Element => (
   <QueryClientProvider client={queryClient}>
     <I18nextProvider i18n={i18nConfig}>
       <ThemeProvider theme={theme}>
-        <ToastContainer stacked />
+        <CssBaseline />
+        <ToastContainer stacked position="bottom-right" />
         <Router>
           <App />
         </Router>

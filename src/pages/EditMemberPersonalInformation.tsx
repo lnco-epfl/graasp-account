@@ -11,20 +11,23 @@ import {
   Typography,
 } from '@mui/material';
 
-import { formatDate } from '@graasp/sdk';
 import { Loader } from '@graasp/ui';
 
-import UsernameForm from '@/components/main/UsernameForm';
+import MemberPropertyForm from '@/components/main/MemberPropertyForm';
 import { useAccountTranslation } from '@/config/i18n';
 import notifier from '@/config/notifier';
 import { PROFILE_PATH } from '@/config/paths';
-import { hooks } from '@/config/queryClient';
+import { hooks, mutations } from '@/config/queryClient';
 import { COPY_MEMBER_ID_TO_CLIPBOARD } from '@/types/clipboard';
 import { copyToClipboard } from '@/utils/clipboard';
 
 const EditMemberPersonalInformation = (): JSX.Element | false => {
-  const { t, i18n } = useAccountTranslation();
+  const { t } = useAccountTranslation();
   const { data: member, isLoading } = hooks.useCurrentMember();
+
+  const { mutate: editMember } = mutations.useEditMember();
+  const { mutate: updateEmail } = mutations.useUpdateMemberEmail();
+
   if (member) {
     const copyIdToClipboard = () => {
       copyToClipboard(member.id, {
@@ -35,6 +38,10 @@ const EditMemberPersonalInformation = (): JSX.Element | false => {
           notifier({ type: COPY_MEMBER_ID_TO_CLIPBOARD.FAILURE, payload: {} });
         },
       });
+    };
+
+    const onSaveEmail = (newEmail: string) => {
+      updateEmail(newEmail);
     };
 
     return (
@@ -48,7 +55,15 @@ const EditMemberPersonalInformation = (): JSX.Element | false => {
               {t('PROFILE_MEMBER_NAME')}
             </Grid>
             <Grid item xs={8}>
-              <UsernameForm member={member} />
+              <MemberPropertyForm
+                value={member.name}
+                onSave={(newUserName) =>
+                  editMember({
+                    id: member.id,
+                    name: newUserName,
+                  })
+                }
+              />
             </Grid>
           </Grid>
 
@@ -72,17 +87,7 @@ const EditMemberPersonalInformation = (): JSX.Element | false => {
               <Typography>{t('PROFILE_EMAIL_TITLE')}</Typography>
             </Grid>
             <Grid item xs={8}>
-              <Typography>{member.email}</Typography>
-            </Grid>
-          </Grid>
-          <Grid container alignItems="center">
-            <Grid item xs={4}>
-              <Typography>{t('PROFILE_CREATED_AT_LABEL')}</Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography>
-                {formatDate(member.createdAt, { locale: i18n.language })}
-              </Typography>
+              <MemberPropertyForm value={member.email} onSave={onSaveEmail} />
             </Grid>
           </Grid>
 

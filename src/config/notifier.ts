@@ -3,20 +3,30 @@ import { toast } from 'react-toastify';
 import { Notifier, routines } from '@graasp/query-client';
 import { FAILURE_MESSAGES } from '@graasp/translations';
 
-import { AxiosError } from 'axios';
+import axios from 'axios';
 
 import i18n from './i18n';
-import {
-  CHANGE_PLAN_ERROR_MESSAGE,
-  CHANGE_PLAN_SUCCESS_MESSAGE,
-} from './messages';
+import { CHANGE_PLAN_SUCCESS_MESSAGE } from './messages';
 
 const {
-  changePlanRoutine,
   updatePasswordRoutine,
   postPublicProfileRoutine,
   patchPublicProfileRoutine,
+  changePlanRoutine,
+  updateEmailRoutine,
 } = routines;
+
+export const getErrorMessageFromPayload = (
+  payload?: Parameters<Notifier>[0]['payload'],
+): string => {
+  if (payload?.error && axios.isAxiosError(payload.error)) {
+    return (
+      payload.error.response?.data.message ?? FAILURE_MESSAGES.UNEXPECTED_ERROR
+    );
+  }
+
+  return payload?.error?.message ?? FAILURE_MESSAGES.UNEXPECTED_ERROR;
+};
 
 type ErrorPayload = Parameters<Notifier>[0]['payload'] & {
   failure?: unknown[];
@@ -27,20 +37,6 @@ type SuccessPayload = {
 };
 
 type Payload = ErrorPayload & SuccessPayload;
-
-const getErrorMessageFromPayload = (
-  payload?: Parameters<Notifier>[0]['payload'],
-) => {
-  if (payload?.error && payload.error instanceof AxiosError) {
-    if (payload.error.isAxiosError) {
-      return (
-        payload.error.response?.data.message ??
-        FAILURE_MESSAGES.UNEXPECTED_ERROR
-      );
-    }
-  }
-  return payload?.error?.message ?? FAILURE_MESSAGES.UNEXPECTED_ERROR;
-};
 
 const getSuccessMessageFromPayload = (payload?: SuccessPayload) =>
   payload?.message ?? 'The operation successfully proceeded';
@@ -53,22 +49,22 @@ export default ({
   payload?: Payload;
 }): void => {
   let message = null;
+
   switch (type) {
     // error messages
-    case updatePasswordRoutine.FAILURE: {
+    case updatePasswordRoutine.FAILURE:
+    case updateEmailRoutine.FAILURE: {
       message = getErrorMessageFromPayload(payload);
       break;
     }
-    case changePlanRoutine.FAILURE: {
-      message = CHANGE_PLAN_ERROR_MESSAGE;
-      break;
-    }
+
     // success messages
     case updatePasswordRoutine.SUCCESS: {
       message = getSuccessMessageFromPayload(payload);
       break;
     }
     case postPublicProfileRoutine.SUCCESS:
+    case updateEmailRoutine.SUCCESS:
     case patchPublicProfileRoutine.SUCCESS: {
       message = i18n.t(
         payload?.message ?? 'The operation successfully proceeded',
