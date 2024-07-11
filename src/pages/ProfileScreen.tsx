@@ -1,14 +1,16 @@
 import ScreenLayout from '@/components/layout/ScreenLayout';
-import MemberPublicProfile from '@/components/main/MemberPublicProfile';
-import PersonalInformation from '@/components/main/PersonalInformation';
 import { useAccountTranslation } from '@/config/i18n';
+import PersonalInformation from '@/modules/profile/PersonalInformation';
+import MemberPassword from '@/modules/profile/password/DisplayPassword';
+import PublicProfile from '@/modules/profile/public/PublicProfile';
 
 const MemberProfileScreen = (): JSX.Element => {
   const { t } = useAccountTranslation();
   return (
     <ScreenLayout title={t('PROFILE_TITLE')}>
       <PersonalInformation />
-      <MemberPublicProfile />
+      <MemberPassword />
+      <PublicProfile />
     </ScreenLayout>
   );
 };
