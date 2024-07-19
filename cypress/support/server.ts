@@ -22,6 +22,7 @@ const {
   buildGetOwnPublicProfileRoute,
   buildPatchPublicProfileRoute,
   buildPostMemberEmailUpdateRoute,
+  buildGetMemberStorageRoute,
 } = API_ROUTES;
 
 export const SIGN_IN_PATH = buildSignInPath({
@@ -167,7 +168,7 @@ export const mockSignOut = (): void => {
 };
 
 export const mockGetCurrentMemberAvatar = (
-  currentMember: MemberForTest,
+  currentMember: MemberForTest | null,
   shouldThrowError: boolean,
 ): void => {
   cy.intercept(
@@ -178,7 +179,7 @@ export const mockGetCurrentMemberAvatar = (
       ),
     },
     ({ reply }) => {
-      if (shouldThrowError) {
+      if (shouldThrowError || !currentMember) {
         return reply({ statusCode: StatusCodes.BAD_REQUEST });
       }
 
@@ -189,6 +190,17 @@ export const mockGetCurrentMemberAvatar = (
       return reply(thumbnail);
     },
   ).as('getCurrentMemberAvatarUrl');
+};
+
+export const mockGetStorage = (storageAmountInBytes: number): void => {
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: new RegExp(`${API_HOST}/${buildGetMemberStorageRoute()}`),
+    },
+    ({ reply }) =>
+      reply({ current: storageAmountInBytes, maximum: 5368709120 }),
+  ).as('getCurrentMemberStorage');
 };
 
 export const mockPostAvatar = (shouldThrowError: boolean): void => {
@@ -207,10 +219,7 @@ export const mockPostAvatar = (shouldThrowError: boolean): void => {
   ).as('uploadAvatar');
 };
 
-export const mockUpdatePassword = (
-  _members: Member[],
-  shouldThrowError: boolean,
-): void => {
+export const mockUpdatePassword = (shouldThrowError: boolean): void => {
   cy.intercept(
     {
       method: HttpMethod.Patch,

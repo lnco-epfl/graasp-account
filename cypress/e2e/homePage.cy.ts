@@ -13,7 +13,7 @@ import {
   LOGIN_REQUIRED_TEXT_ID,
   MEMBER_AVATAR_IMAGE_ID,
   MEMBER_CREATED_AT_ID,
-  MEMBER_USERNAME_DISPLAY_ID
+  MEMBER_USERNAME_DISPLAY_ID,
 } from '@/config/selectors';
 
 import { BOB, MEMBER_WITH_AVATAR } from '../fixtures/members';
@@ -54,11 +54,11 @@ class TestHelper {
       },
       ({ reply }) => {
         if (this.currentMember.extra.hasAvatar) {
-          return reply(this.currentMember.thumbnail);
+          return reply({ body: this.currentMember.thumbnail });
         }
         return reply({ statusCode: StatusCodes.NOT_FOUND });
       },
-    );
+    ).as('getAvatar');
     cy.intercept(
       {
         method: HttpMethod.Post,
