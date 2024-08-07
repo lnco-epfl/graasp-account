@@ -1,11 +1,16 @@
-import { CookieKeys, PublicProfile } from '@graasp/sdk';
+import { CookieKeys, MemberStorageItem, PublicProfile } from '@graasp/sdk';
 
-import { CURRENT_MEMBER, MEMBER_PUBLIC_PROFILE } from '../fixtures/members';
+import {
+  CURRENT_MEMBER,
+  MEMBER_PUBLIC_PROFILE,
+  MEMBER_STORAGE_ITEM_RESPONSE,
+} from '../fixtures/members';
 import {
   mockEditMember,
   mockEditPublicProfile,
   mockGetCurrentMember,
   mockGetCurrentMemberAvatar,
+  mockGetMemberStorageFiles,
   mockGetOwnProfile,
   mockGetStorage,
   mockPostAvatar,
@@ -31,6 +36,8 @@ declare global {
         postAvatarError?: boolean;
         updatePasswordError?: boolean;
         updateEmailError?: boolean;
+        files?: MemberStorageItem[];
+        getMemberStorageFilesError?: boolean;
       }): Chainable;
     }
   }
@@ -50,10 +57,12 @@ Cypress.Commands.add(
     updatePasswordError = false,
     updateEmailError = false,
     storageAmountInBytes = 10000,
+    files = MEMBER_STORAGE_ITEM_RESPONSE,
+    getMemberStorageFilesError = false,
   } = {}) => {
     const cachedCurrentMember = JSON.parse(JSON.stringify(currentMember));
     const cachedCurrentProfile = JSON.parse(JSON.stringify(currentProfile));
-
+    const cachedCurrentStorageFiles = JSON.parse(JSON.stringify(files));
     // hide cookie banner by default
     cy.setCookie(CookieKeys.AcceptCookies, 'true');
 
@@ -74,5 +83,9 @@ Cypress.Commands.add(
     mockUpdateEmail(updateEmailError);
 
     mockGetStorage(storageAmountInBytes);
+    mockGetMemberStorageFiles(
+      cachedCurrentStorageFiles,
+      getMemberStorageFilesError,
+    );
   },
 );

@@ -9,7 +9,11 @@ import {
 
 import { StatusCodes } from 'http-status-codes';
 
-import { CURRENT_MEMBER, MEMBER_PUBLIC_PROFILE } from '../fixtures/members';
+import {
+  CURRENT_MEMBER,
+  MEMBER_PUBLIC_PROFILE,
+  MEMBER_STORAGE_ITEM_RESPONSE,
+} from '../fixtures/members';
 import { ID_FORMAT, MemberForTest } from './utils';
 
 const {
@@ -18,7 +22,7 @@ const {
   SIGN_OUT_ROUTE,
   buildPatchMemberRoute,
   buildUploadAvatarRoute,
-  buildUpdateMemberPasswordRoute,
+  buildPatchMemberPasswordRoute,
   buildGetOwnPublicProfileRoute,
   buildPatchPublicProfileRoute,
   buildPostMemberEmailUpdateRoute,
@@ -203,6 +207,45 @@ export const mockGetStorage = (storageAmountInBytes: number): void => {
   ).as('getCurrentMemberStorage');
 };
 
+export const mockGetMemberStorageFiles = (
+  files = MEMBER_STORAGE_ITEM_RESPONSE,
+  shouldThrowError = false,
+): void => {
+  const route = new RegExp(`${API_HOST}/members/current/storage/files`);
+  cy.intercept(
+    {
+      method: HttpMethod.Get,
+      url: route,
+    },
+    ({ url, reply }) => {
+      const params = new URL(url).searchParams;
+
+      const page = window.parseInt(params.get('page') ?? '1');
+      const pageSize = window.parseInt(params.get('pageSize') ?? '10', 10);
+
+      const result = files.slice((page - 1) * pageSize, page * pageSize);
+
+      if (shouldThrowError) {
+        return reply({
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+          body: null,
+        });
+      }
+      return reply({
+        statusCode: StatusCodes.OK,
+        body: {
+          data: result,
+          pagination: {
+            page,
+            pageSize,
+          },
+          totalCount: files.length,
+        },
+      });
+    },
+  ).as('getMemberStorageFiles');
+};
+
 export const mockPostAvatar = (shouldThrowError: boolean): void => {
   cy.intercept(
     {
@@ -223,7 +266,7 @@ export const mockUpdatePassword = (shouldThrowError: boolean): void => {
   cy.intercept(
     {
       method: HttpMethod.Patch,
-      url: new RegExp(`${API_HOST}/${buildUpdateMemberPasswordRoute()}`),
+      url: new RegExp(`${API_HOST}/${buildPatchMemberPasswordRoute()}`),
     },
     ({ reply }) => {
       if (shouldThrowError) {
