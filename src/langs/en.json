@@ -112,7 +112,7 @@
   "EXPORT_INFORMATIONS_BUTTON_TEXT": "Download your data",
   "EXPORT_SUCCESS_MESSAGE": "You have successfully requested your data. You will receive an e-mail with your data in a few minutes.",
   "EXPORT_ERROR_MESSAGE": "An unexpected error occurred",
-  "NOT_FOUND_PAGE_TEXT": "404 Page not found",
-  "NOT_FOUND_Page_MESSAGE": "Sorry, we could not find this page.",
+  "NOT_FOUND_PAGE_TEXT": "Page not found",
+  "NOT_FOUND_PAGE_MESSAGE": "Sorry, we could not find this page.",
   "GO_TO_HOME_TEXT": "Go to Home"
 }
