@@ -21,7 +21,6 @@ describe('404 Page Test', () => {
   });
 
   it('should navigate to the home page when clicking "Go to Home"', () => {
-    cy.visit('/non-existing-page');
     cy.get(`#${GO_TO_HOME_LINK_ID}`).click();
 
     // Check if the URL is the home page

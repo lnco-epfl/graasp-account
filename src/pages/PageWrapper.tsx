@@ -78,7 +78,7 @@ const PageWrapper = (): JSX.Element => {
       }
       headerRightContent={<UserSwitchWrapper />}
     >
-      <Box p={2}>
+      <Box p={2} height="100%">
         <Outlet />
       </Box>
     </Main>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container, Stack, Typography } from '@mui/material';
@@ -14,14 +13,13 @@ const NotFoundPage = (): JSX.Element => {
   const { t } = useAccountTranslation();
 
   return (
-    <Container
-      sx={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-      }}
-    >
-      <Stack spacing={2} marginTop={5}>
+    <Container sx={{ height: '100%' }}>
+      <Stack
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+        height="100%"
+      >
         <Typography variant="h1" id={NOT_FOUND_TEXT_ID}>
           {t('NOT_FOUND_PAGE_TEXT')}
         </Typography>
