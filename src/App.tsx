@@ -9,6 +9,7 @@ import {
 } from './config/paths';
 import EmailChangeValidationScreen from './pages/EmailChangeValidationScreen';
 import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
 import PageWrapper from './pages/PageWrapper';
 import ProfileScreen from './pages/ProfileScreen';
 import RequireAuthentication from './pages/RequireAuthentication';
@@ -27,6 +28,7 @@ export const App = (): JSX.Element => (
         <Route path={PROFILE_PATH} element={<ProfileScreen />} />
         <Route path={STORAGE_PATH} element={<StorageScreen />} />
         <Route path={SETTINGS_PATH} element={<SettingsScreen />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Route>
   </Routes>
