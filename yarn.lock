@@ -1122,9 +1122,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/ui@github:graasp/graasp-ui#fix-stylis-rtl-issue":
-  version: 4.26.1
-  resolution: "@graasp/ui@https://github.com/graasp/graasp-ui.git#commit=27cd306eae4c65be41af95c45a34d15fd6a761bf"
+"@graasp/ui@npm:4.26.2":
+  version: 4.26.2
+  resolution: "@graasp/ui@npm:4.26.2"
   dependencies:
     "@ag-grid-community/client-side-row-model": "npm:31.3.4"
     "@ag-grid-community/react": "npm:^31.3.4"
@@ -1145,7 +1145,7 @@ __metadata:
     "@emotion/react": ~11.10.6 || ~11.11.0 || ~11.13.0
     "@emotion/styled": ~11.10.6 || ~11.11.0 || ~11.13.0
     "@graasp/sdk": ^4.14.0
-    "@graasp/stylis-plugin-rtl": "*"
+    "@graasp/stylis-plugin-rtl": ^2
     "@graasp/translations": ^1.23.0
     "@mui/icons-material": ~5.14.0 || ~5.15.0 || ~5.16.0
     "@mui/lab": ~5.0.0-alpha.150
@@ -1158,7 +1158,7 @@ __metadata:
     react-i18next: ^13.0.0 || ^14.0.0 || ^15.0.0
     react-router-dom: ^6.11.0
     stylis: ^4.1.3
-  checksum: 10/8250976a5bb16f020813d712707a535596f3ae4bd5b7fb9168f35908a2a38d24193c6f078fc22cc84a2a63a190c5dd80f268a860cefc4d1e387dde70456b3a4f
+  checksum: 10/0a20d66a9653b13a07d7345d4d5d6e5c24b0ab8548d449f530b6f6231ed5170f116b8e678b193d1182620a01001d5d38af85773bbdeccb8b302e2130b306092d
   languageName: node
   linkType: hard
 
@@ -2367,6 +2367,13 @@ __metadata:
   version: 2.3.8
   resolution: "@types/sizzle@npm:2.3.8"
   checksum: 10/2ac62443dc917f5f903cbd9afc51c7d6cc1c6569b4e1a15faf04aea5b13b486e7f208650014c3dc4fed34653eded3e00fe5abffe0e6300cbf0e8a01beebf11a6
+  languageName: node
+  linkType: hard
+
+"@types/stylis@npm:^4":
+  version: 4.2.6
+  resolution: "@types/stylis@npm:4.2.6"
+  checksum: 10/2f199f0cd0f8b3734f21a83159556e6a80f96a31c4f0fd2e7c9176023e2d56e795adeb90dc8ba7de7fc2017cce2e92d2d55fd6dc77fa6986e56674b1806a65bc
   languageName: node
   linkType: hard
 
@@ -4003,7 +4010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssjanus@npm:^2.0.1, cssjanus@npm:^2.3.0":
+"cssjanus@npm:^2.3.0":
   version: 2.3.0
   resolution: "cssjanus@npm:2.3.0"
   checksum: 10/eaa78f8b6047f52ea504964fd15b3f92b4d3603dd50350ad3c8c53dc51db8d4f75bac54570cd281df8ac368ed8759ccc677ae3cb53583af051688d63dc329232
@@ -4129,6 +4136,13 @@ __metadata:
     es-errors: "npm:^1.3.0"
     is-data-view: "npm:^1.0.1"
   checksum: 10/96f34f151bf02affb7b9f98762fb7aca1dd5f4553cb57b80bce750ca609c15d33ca659568ef1d422f7e35680736cbccb893a3d4b012760c758c1446bbdc4c6db
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:3.6.0":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 10/cac35c58926a3b5d577082ff2b253612ec1c79eb6754fddef46b6a8e826501ea2cb346ecbd211205f1ba382ddd1f9d8c3f00bf433ad63cc3063454d294e3a6b8
   languageName: node
   linkType: hard
 
@@ -5924,7 +5938,7 @@ __metadata:
     "@graasp/sdk": "npm:4.26.0"
     "@graasp/stylis-plugin-rtl": "npm:2.2.0"
     "@graasp/translations": "npm:1.35.1"
-    "@graasp/ui": "github:graasp/graasp-ui#fix-stylis-rtl-issue"
+    "@graasp/ui": "npm:4.26.2"
     "@mui/icons-material": "npm:5.16.7"
     "@mui/lab": "npm:5.0.0-alpha.172"
     "@mui/material": "npm:5.16.7"
@@ -5935,6 +5949,7 @@ __metadata:
     "@types/react-dom": "npm:18.3.0"
     "@types/react-router-dom": "npm:5.3.3"
     "@types/react-toastify": "npm:^4.1.0"
+    "@types/stylis": "npm:^4"
     "@typescript-eslint/eslint-plugin": "npm:8.3.0"
     "@typescript-eslint/parser": "npm:8.3.0"
     "@uppy/core": "npm:^3.11.1"
@@ -5950,6 +5965,7 @@ __metadata:
     axios: "npm:1.7.5"
     concurrently: "npm:8.2.2"
     cypress: "npm:13.13.3"
+    date-fns: "npm:3.6.0"
     env-cmd: "npm:10.1.0"
     eslint: "npm:^8.57.0"
     eslint-config-airbnb: "npm:19.0.4"
@@ -5974,7 +5990,7 @@ __metadata:
     react-toastify: "npm:10.0.5"
     rollup-plugin-visualizer: "npm:^5.12.0"
     social-links: "npm:^1.14.0"
-    stylis-plugin-rtl: "npm:2.1.1"
+    stylis: "npm:4.3.4"
     typescript: "npm:5.5.4"
     uuid: "npm:10.0.0"
     vite: "npm:5.4.2"
@@ -9721,21 +9737,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylis-plugin-rtl@npm:2.1.1":
-  version: 2.1.1
-  resolution: "stylis-plugin-rtl@npm:2.1.1"
-  dependencies:
-    cssjanus: "npm:^2.0.1"
-  peerDependencies:
-    stylis: 4.x
-  checksum: 10/262d2c762216556ed3dc8218ea5929ae24b4b0fae020eb41c217911e6628374009d1e1b24256ed6a2f39cbbf302a877f2efe912b628c71dd15fde90866ca54ca
-  languageName: node
-  linkType: hard
-
 "stylis@npm:4.2.0":
   version: 4.2.0
   resolution: "stylis@npm:4.2.0"
   checksum: 10/58359185275ef1f39c339ae94e598168aa6bb789f6cf0d52e726c1e7087a94e9c17f0385a28d34483dec1ffc2c75670ec714dc5603d99c3124ec83bc2b0a0f42
+  languageName: node
+  linkType: hard
+
+"stylis@npm:4.3.4":
+  version: 4.3.4
+  resolution: "stylis@npm:4.3.4"
+  checksum: 10/69b902a3c9fc3329c8ddb18d422f8130068356dd4d4a20ae245953679cc88ae08d49c55e32b0b57c8fe8a76f2ed7f32697240b8db4d368a25fc2db045ebaeba8
   languageName: node
   linkType: hard
 
