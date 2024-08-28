@@ -41,6 +41,7 @@ const MemberPreferences = (): JSX.Element => {
       title={t('PROFILE_PREFERENCES_TITLE')}
       topActions={[
         <Button
+          key="edit"
           variant="contained"
           onClick={handleEditClick}
           id={PREFERENCES_EDIT_BUTTON_ID}
