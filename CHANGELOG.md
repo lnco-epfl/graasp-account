@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.14.0](https://github.com/graasp/graasp-account/compare/v2.13.0...v2.14.0) (2024-08-29)
+
+
+### Features
+
+* add 404 page ([#333](https://github.com/graasp/graasp-account/issues/333)) ([a5854d5](https://github.com/graasp/graasp-account/commit/a5854d50560d9d4516b9a105c1368a8cb1e5305f))
+* arabic view - rtl ([#332](https://github.com/graasp/graasp-account/issues/332)) ([2380ff3](https://github.com/graasp/graasp-account/commit/2380ff324bacb1c82f807746ea83386addecdb5a))
+
+
+### Bug Fixes
+
+* **arabic:** update translations ([#340](https://github.com/graasp/graasp-account/issues/340)) ([495c878](https://github.com/graasp/graasp-account/commit/495c8789f5d72f02479c245ee04b97e2df87d84c))
+* fix bug selecting 100 items in storage table ([#330](https://github.com/graasp/graasp-account/issues/330)) ([02d0d99](https://github.com/graasp/graasp-account/commit/02d0d99437654778e6a97d8f3f0532f431f44bb5))
+* **german:** update translations ([#339](https://github.com/graasp/graasp-account/issues/339)) ([8eab9fb](https://github.com/graasp/graasp-account/commit/8eab9fb5b747e3d63f4c8c783a8814a9062845c4))
+* **italian:** update translations ([#337](https://github.com/graasp/graasp-account/issues/337)) ([f3cdc03](https://github.com/graasp/graasp-account/commit/f3cdc0341bbc7b55ff952d0baf058916bd139d53))
+* **spanish:** update translations ([#338](https://github.com/graasp/graasp-account/issues/338)) ([48e7c27](https://github.com/graasp/graasp-account/commit/48e7c27b4b6b617149a57cab9bdc5743095635f2))
+* update dependencies ([#334](https://github.com/graasp/graasp-account/issues/334)) ([f81f355](https://github.com/graasp/graasp-account/commit/f81f3559fb1e908aaf7e7af0187084d895d76d5e))
+
 ## [2.13.0](https://github.com/graasp/graasp-account/compare/v2.12.0...v2.13.0) (2024-08-19)
 
 
