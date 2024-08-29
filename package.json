@@ -14,7 +14,7 @@
     "@emotion/cache": "11.13.1",
     "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
-    "@graasp/query-client": "3.22.2",
+    "@graasp/query-client": "3.22.3",
     "@graasp/sdk": "4.26.0",
     "@graasp/stylis-plugin-rtl": "2.2.0",
     "@graasp/translations": "1.35.1",
